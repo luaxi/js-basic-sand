@@ -1,4 +1,5 @@
 
-export const MATRIX_DIM_SIZE = 40;
-export const CANVAS_PIXEL_SIZE = 10;
+export const MATRIX_DIM_SIZE = 60;
+export const CANVAS_PIXEL_SIZE = 8;
 export const ELEMENT_MAIN = "#main";
+export const CANVAS_COLOR_EMPTY = "black";

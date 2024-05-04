@@ -33,9 +33,13 @@ function run(canvas){
     for (let i = 0; i < myMatrix.length; i++) {
         for (let j = 0; j < myMatrix[0].length; j++) {
             if(myMatrix[i][j] == 1){
-                if (myMatrix[i][j+1] == 0) {
+                if (myMatrix[i][j+1] == 0) { // fall down
                     newMatrix[i][j+1] = 1
-                } else {
+                } else if (i > 0 && myMatrix[i-1][j+1] == 0){ // fall left
+                    newMatrix[i-1][j+1] = 1;
+                } else if (i < myMatrix.length-1 && myMatrix[i+1][j+1] == 0) { // fall right
+                    newMatrix[i+1][j+1] = 1;
+                } else { // não se move
                     newMatrix[i][j] = 1;
                 }
             }
@@ -55,9 +59,9 @@ function renderCanvas(canvas) {
     for (let i = 0; i < myMatrix.length; i++) {
         for (let j = 0; j < myMatrix[0].length; j++) {
             if (myMatrix[i][j] == 0) {
-                canvas.drawPixel(i, j, "yellow");
+                canvas.drawPixel(i, j, Constants.CANVAS_COLOR_EMPTY);
             } else {
-                canvas.drawPixel(i, j, "green");
+                canvas.drawPixel(i, j, "white");
             }
         }
     }
