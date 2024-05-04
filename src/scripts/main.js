@@ -5,8 +5,6 @@ let canvasId = "sand-canvas"
 let matrix = createEmptyMatrix();
 let colorHue = 1;
 
-console.log(matrix);
-
 function main(){
 
     let canvas = new Canvas(
@@ -25,6 +23,7 @@ function main(){
     }
 
     run(canvas);
+    // canvas.run();
 }
 
 function run(canvas){
