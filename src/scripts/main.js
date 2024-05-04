@@ -9,7 +9,6 @@ console.log(matrix);
 
 function main(){
 
-    // cria o canva
     let canvas = new Canvas(
         Constants.CANVAS_WIDTH,
         Constants.CANVAS_HEIGHT,

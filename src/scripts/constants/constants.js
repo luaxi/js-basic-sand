@@ -1,5 +1,4 @@
 
-export const MATRIX_DIM_SIZE = 60;
 export const CANVAS_WIDTH = 120;
 export const CANVAS_HEIGHT = 60;
 export const CANVAS_PIXEL_SIZE = 8;
