@@ -2,29 +2,29 @@ import { Canvas } from './classes/Canvas.js';
 import * as Constants from './constants/constants.js';
 
 let canvasId = "sand-canvas"
-let myMatrix = createEmptyMatrix();
+let matrix = createEmptyMatrix();
 let colorHue = 1;
 
-console.log(myMatrix);
+console.log(matrix);
 
 function main(){
 
     // cria o canva
-    let myCanvas = new Canvas(
+    let canvas = new Canvas(
         Constants.MATRIX_DIM_SIZE,
         Constants.CANVAS_PIXEL_SIZE,
         Constants.ELEMENT_MAIN,
         canvasId,
     ) 
 
-    myCanvas.onMouseDragged = function(e){
+    canvas.onMouseDragged = function(e){
         let x = Math.floor(e.offsetX / Constants.CANVAS_PIXEL_SIZE);
         let y = Math.floor(e.offsetY / Constants.CANVAS_PIXEL_SIZE);
 
-        if(myMatrix[x][y] == 0) myMatrix[x][y] = colorHue;
+        if(matrix[x][y] == 0) matrix[x][y] = colorHue;
     }
 
-    run(myCanvas);
+    run(canvas);
 }
 
 function run(canvas){
@@ -33,23 +33,30 @@ function run(canvas){
 
     colorHue = (colorHue > 360) ? 1 : colorHue+1;
 
-    for (let i = 0; i < myMatrix.length; i++) {
-        for (let j = 0; j < myMatrix[0].length; j++) {
-            if(myMatrix[i][j] > 0){
-                if (myMatrix[i][j+1] == 0) { // fall down
-                    newMatrix[i][j+1] = myMatrix[i][j];
-                } else if (i > 0 && myMatrix[i-1][j+1] == 0){ // fall left
-                    newMatrix[i-1][j+1] = myMatrix[i][j];
-                } else if (i < myMatrix.length-1 && myMatrix[i+1][j+1] == 0) { // fall right
-                    newMatrix[i+1][j+1] = myMatrix[i][j];
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[0].length; j++) {
+            let current = matrix[i][j];
+            let below = matrix[i][j+1];
+            let dir = (Math.random() < 0.5) ? -1 : 1;
+
+            let belowA = (i + dir >= 0 && i + dir <= matrix.length-1) ? matrix[i+dir][j+1] : undefined;
+            let belowB = (i - dir >= 0 && i - dir <= matrix.length-1) ? matrix[i-dir][j+1] : undefined;
+            
+            if(current > 0){
+                if (below == 0) { // fall down
+                    newMatrix[i][j+1] = current;
+                } else if (belowA == 0){ // fall left
+                    newMatrix[i+dir][j+1] = current;
+                } else if (belowB == 0) { // fall right
+                    newMatrix[i-dir][j+1] = current;
                 } else { // não se move
-                    newMatrix[i][j] = myMatrix[i][j];
+                    newMatrix[i][j] = current;
                 }
             }
         }
     }
 
-    myMatrix = newMatrix;
+    matrix = newMatrix;
 
     renderCanvas(canvas);
 
@@ -61,12 +68,12 @@ function run(canvas){
 function renderCanvas(canvas) {
     canvas.clear();
 
-    for (let i = 0; i < myMatrix.length; i++) {
-        for (let j = 0; j < myMatrix[0].length; j++) {
-            if (myMatrix[i][j] == 0) {
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[0].length; j++) {
+            if (matrix[i][j] == 0) {
                 // canvas.drawPixel(i, j, Constants.CANVAS_COLOR_EMPTY);
             } else {
-                canvas.drawPixel(i, j, `hsl(${myMatrix[i][j]}, 100%, 50%)`);
+                canvas.drawPixel(i, j, `hsl(${matrix[i][j]}, 100%, 50%)`);
             }
         }
     }
