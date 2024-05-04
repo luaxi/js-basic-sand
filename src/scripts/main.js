@@ -17,7 +17,7 @@ function main(){
         canvasId,
     ) 
 
-    myCanvas.callback = function(e){
+    myCanvas.onMouseDragged = function(e){
         let x = Math.floor(e.offsetX / Constants.CANVAS_PIXEL_SIZE);
         let y = Math.floor(e.offsetY / Constants.CANVAS_PIXEL_SIZE);
 
@@ -59,10 +59,12 @@ function run(canvas){
 }
 
 function renderCanvas(canvas) {
+    canvas.clear();
+
     for (let i = 0; i < myMatrix.length; i++) {
         for (let j = 0; j < myMatrix[0].length; j++) {
             if (myMatrix[i][j] == 0) {
-                canvas.drawPixel(i, j, Constants.CANVAS_COLOR_EMPTY);
+                // canvas.drawPixel(i, j, Constants.CANVAS_COLOR_EMPTY);
             } else {
                 canvas.drawPixel(i, j, `hsl(${myMatrix[i][j]}, 100%, 50%)`);
             }

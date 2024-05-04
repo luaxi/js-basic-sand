@@ -1,7 +1,8 @@
+import { CANVAS_COLOR_EMPTY } from "../constants/constants.js";
 
 export class Canvas{
 
-    callback;
+    onMouseDragged;
 
     constructor(size, pixelSize, parentElement, canvasId){
         this.SIDES_SIZE = size * pixelSize;
@@ -27,7 +28,7 @@ export class Canvas{
 
         canvas.addEventListener('mousemove', (e) => {
             if(this.isMouseDown){
-                this.callback(e);
+                this.onMouseDragged(e);
             }
         });
         
@@ -51,6 +52,13 @@ export class Canvas{
         ctx.fillStyle = color;
         ctx.fillRect(x, y, this.PIXEL_SIZE, this.PIXEL_SIZE);
 
+    }
+
+    clear(){
+        let ctx = this.selfElement.getContext('2d');
+        ctx.fillStyle = CANVAS_COLOR_EMPTY;
+
+        ctx.fillRect(0, 0, this.SIDES_SIZE, this.SIDES_SIZE)
     }
 
 }
