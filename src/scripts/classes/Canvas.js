@@ -1,16 +1,13 @@
 
 export class Canvas{
 
-    constructor(sideSize, pixelSize, parentElement, canvasId){
-        this.WIDTH = sideSize;
-        this.HEIGHT = sideSize;
+    constructor(size, pixelSize, parentElement, canvasId){
+        this.SIDES_SIZE = size * pixelSize;
         this.CANVAS_ID = canvasId;
         this.PIXEL_SIZE = pixelSize;
         this.isMouseDown = false;
         
-        this.MATRIX_DIM_SIZE = sideSize/pixelSize;
-        
-        this.selfElement = this.createCanvas(sideSize, parentElement, canvasId);
+        this.selfElement = this.createCanvas(this.SIDES_SIZE, parentElement, canvasId);
 
     }
 

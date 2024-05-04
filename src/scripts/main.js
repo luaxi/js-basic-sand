@@ -5,7 +5,7 @@ const canvasId = "sand-canvas"
 
 function main(){
     let myCanvas = new Canvas(
-        Constants.CANVAS_SIDE_SIZE,
+        Constants.MATRIX_DIM_SIZE,
         Constants.CANVAS_PIXEL_SIZE,
         Constants.ELEMENT_MAIN,
         canvasId
