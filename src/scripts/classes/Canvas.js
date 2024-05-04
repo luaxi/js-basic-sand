@@ -1,14 +1,14 @@
 
 export class Canvas{
 
+    callback;
+
     constructor(size, pixelSize, parentElement, canvasId){
         this.SIDES_SIZE = size * pixelSize;
         this.CANVAS_ID = canvasId;
         this.PIXEL_SIZE = pixelSize;
         this.isMouseDown = false;
-        
         this.selfElement = this.createCanvas(this.SIDES_SIZE, parentElement, canvasId);
-
     }
 
     createCanvas(sideSize, parentElement, canvasId){
@@ -27,7 +27,7 @@ export class Canvas{
 
         canvas.addEventListener('mousemove', (e) => {
             if(this.isMouseDown){
-                this.handleMouseClick(e.offsetX, e.offsetY);
+                this.callback(e);
             }
         });
         
@@ -53,10 +53,4 @@ export class Canvas{
 
     }
 
-   handleMouseClick(x, y){
-        let newX = Math.floor(x / this.PIXEL_SIZE);
-        let newY = Math.floor(y / this.PIXEL_SIZE);
-
-        this.drawPixel(newX, newY, "green")
-    }
 }
