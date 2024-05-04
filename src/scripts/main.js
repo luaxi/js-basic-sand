@@ -11,7 +11,8 @@ function main(){
 
     // cria o canva
     let canvas = new Canvas(
-        Constants.MATRIX_DIM_SIZE,
+        Constants.CANVAS_WIDTH,
+        Constants.CANVAS_HEIGHT,
         Constants.CANVAS_PIXEL_SIZE,
         Constants.ELEMENT_MAIN,
         canvasId,
@@ -80,8 +81,8 @@ function renderCanvas(canvas) {
 }
 
 function createEmptyMatrix(){
-    return new Array(Constants.MATRIX_DIM_SIZE).fill(0)
-                .map(() => new Array(Constants.MATRIX_DIM_SIZE).fill(0));
+    return new Array(Constants.CANVAS_WIDTH).fill(0)
+                .map(() => new Array(Constants.CANVAS_HEIGHT).fill(0));
 }
 
 main();

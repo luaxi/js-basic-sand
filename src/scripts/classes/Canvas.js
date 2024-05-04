@@ -4,18 +4,19 @@ export class Canvas{
 
     onMouseDragged;
 
-    constructor(size, pixelSize, parentElement, canvasId){
-        this.SIDES_SIZE = size * pixelSize;
+    constructor(width, height, pixelSize, parentElement, canvasId){
+        this.WIDTH = width * pixelSize;
+        this.HEIGHT = height * pixelSize;
         this.CANVAS_ID = canvasId;
         this.PIXEL_SIZE = pixelSize;
         this.isMouseDown = false;
-        this.selfElement = this.createCanvas(this.SIDES_SIZE, parentElement, canvasId);
+        this.selfElement = this.createCanvas(this.WIDTH, this.HEIGHT, parentElement, canvasId);
     }
 
-    createCanvas(sideSize, parentElement, canvasId){
+    createCanvas(width, height, parentElement, canvasId){
         let canvas = document.createElement("canvas");
-        canvas.width = sideSize;
-        canvas.height = sideSize;
+        canvas.width = width;
+        canvas.height = height;
         canvas.id = canvasId;
         
         canvas.addEventListener('mousedown', (e) => {
@@ -51,14 +52,13 @@ export class Canvas{
         
         ctx.fillStyle = color;
         ctx.fillRect(x, y, this.PIXEL_SIZE, this.PIXEL_SIZE);
-
     }
 
     clear(){
         let ctx = this.selfElement.getContext('2d');
         ctx.fillStyle = CANVAS_COLOR_EMPTY;
 
-        ctx.fillRect(0, 0, this.SIDES_SIZE, this.SIDES_SIZE)
+        ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
     }
 
 }
