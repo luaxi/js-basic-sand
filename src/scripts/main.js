@@ -1,5 +1,5 @@
-import { Canvas } from './classes/Canvas.js';
 import * as Constants from './constants/constants.js';
+import { Canvas } from './components/Canvas.js';
 
 function main(){
 
