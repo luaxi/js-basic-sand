@@ -5,6 +5,7 @@ export class Canvas{
     isMouseDown = false;
     colorHue = 1;
     matrix = createEmptyMatrix();
+    speed = 0;
 
     constructor(width, height, pixelSize, parentElement, canvasId){
         this.WIDTH = width * pixelSize;
@@ -33,7 +34,11 @@ export class Canvas{
                 let x = Math.floor(e.offsetX / Constants.CANVAS_PIXEL_SIZE);
                 let y = Math.floor(e.offsetY / Constants.CANVAS_PIXEL_SIZE);
 
-                if(this.matrix[x][y] == 0) this.matrix[x][y] = this.colorHue;
+                if(this.matrix[x][y] == 0){ 
+                    this.matrix[x][y] = this.colorHue;
+                    this.drawPixel(x, y, "white");
+                }
+                
             }
         });
         
@@ -86,9 +91,12 @@ export class Canvas{
     
         this.renderCanvas();
     
-        requestAnimationFrame(() => {
+        setTimeout(requestAnimationFrame, this.speed, () => {
             this.run()
-        });
+        })
+        // requestAnimationFrame(() => {
+        //     this.run()
+        // });
     }
 
     drawPixel(x, y, color){
