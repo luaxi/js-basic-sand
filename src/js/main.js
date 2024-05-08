@@ -19,7 +19,7 @@ function main(){
     slider.value = Constants.CANVAS_MAX_SPEED;
 
     slider.addEventListener('input', (e) => {
-        let convertSpeed = ((slider.value / 300) - 1 ) * -300;
+        let convertSpeed = -slider.value + Constants.CANVAS_MAX_SPEED;
         canvas.speed = convertSpeed;
     });
 
