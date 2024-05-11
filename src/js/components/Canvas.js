@@ -3,9 +3,11 @@ import * as Constants from "../constants/constants.js";
 export class Canvas{
 
     isMouseDown = false;
-    colorHue = 1;
+    // colorHue = 1;
     matrix = createEmptyMatrix();
+    
     speed = 0;
+    selectedColor = 0xFFFFFF;
 
     constructor(width, height, pixelSize, parentElement, canvasId){
         this.WIDTH = width * pixelSize;
@@ -35,8 +37,9 @@ export class Canvas{
                 let y = Math.floor(e.offsetY / Constants.CANVAS_PIXEL_SIZE);
 
                 if(this.matrix[x][y] == 0){ 
-                    this.matrix[x][y] = this.colorHue;
-                    this.drawPixel(x, y, "white");
+                    this.matrix[x][y] = this.selectedColor;
+                    console.log(this.selectedColor);
+                    this.drawPixel(x, y, Constants.CANVAS_COLOR_START);
                 }
                 
             }
@@ -53,7 +56,8 @@ export class Canvas{
         for (let i = 0; i < this.matrix.length; i++) {
             for (let j = 0; j < this.matrix[0].length; j++) {
                 if (this.matrix[i][j] > 0) {
-                    this.drawPixel(i, j, `hsl(${this.matrix[i][j]}, 100%, 50%)`);
+                    // this.drawPixel(i, j, `hsl(${this.matrix[i][j]}, 100%, 50%)`);
+                    this.drawPixel(i, j, Constants.hexToString(this.matrix[i][j]));
                 }
             }
         }
@@ -62,7 +66,7 @@ export class Canvas{
     run(){
 
         let newMatrix = createEmptyMatrix();
-        this.colorHue = (this.colorHue > 360) ? 1 : this.colorHue+1;
+        // this.colorHue = (this.colorHue > 360) ? 1 : this.colorHue+1;
     
         for (let i = 0; i < this.matrix.length; i++) {
             for (let j = 0; j < this.matrix[0].length; j++) {
@@ -94,16 +98,13 @@ export class Canvas{
         setTimeout(requestAnimationFrame, this.speed, () => {
             this.run()
         })
-        // requestAnimationFrame(() => {
-        //     this.run()
-        // });
     }
 
     drawPixel(x, y, color){
         let ctx = this.selfElement.getContext('2d');
         x *= this.PIXEL_SIZE;
         y *= this.PIXEL_SIZE;
-        
+
         ctx.fillStyle = color;
         ctx.fillRect(x, y, this.PIXEL_SIZE, this.PIXEL_SIZE);
     }
@@ -113,6 +114,11 @@ export class Canvas{
         ctx.fillStyle = Constants.CANVAS_COLOR_EMPTY;
 
         ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
+    }
+
+    reset(){
+        this.clear();
+        this.matrix = createEmptyMatrix();
     }
 
 }

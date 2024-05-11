@@ -8,9 +8,11 @@ Um simples projeto de simulador de areia implementado em JavaScript puro. Ele pe
 - Gerar partículas clicando e arrastando na tela.
 - Areia colorida.
 - Controle de velocidade da simulação
+- Botão para resetar o canvas
+- Seletor de cores para desenhar a areia
 
 ## To-do
-- [ ] Seletor de cores para desenhar a areia
+- [ ] Botão para baixar o canvas em png
 - [ ] Outros modos de simulação
 - [ ] Redimensionar canvas
 - [ ] Canvas na tela inteira
