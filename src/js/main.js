@@ -32,7 +32,7 @@ function main(){
         let label = document.createElement("label");
         let input = document.createElement("input");
        
-        span.style.backgroundColor = Constants.hexToString(color.hexCode);
+        span.style.backgroundColor = Constants.hexColorToString(color.hexCode);
         span.className = "color-option";
         span.id = color.name;
 

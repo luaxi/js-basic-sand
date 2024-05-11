@@ -23,4 +23,5 @@ export const COLORS = [
     { name: "purple", hexCode: 0xA333C8 },
 ];
 
-export const hexToString = (x) => "#" + x.toString(16).toUpperCase().padStart(6, '0');
+export const hexToString = (x) => x.toString(16).toUpperCase();
+export const hexColorToString = (x) => "#" + hexToString(x).padStart(6, '0');

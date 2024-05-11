@@ -37,8 +37,7 @@ export class Canvas{
                 let y = Math.floor(e.offsetY / Constants.CANVAS_PIXEL_SIZE);
 
                 if(this.matrix[x][y] == 0){ 
-                    this.matrix[x][y] = this.selectedColor;
-                    console.log(this.selectedColor);
+                    this.matrix[x][y] = randomColorInSpectrum(this.selectedColor);
                     this.drawPixel(x, y, Constants.CANVAS_COLOR_START);
                 }
                 
@@ -56,8 +55,7 @@ export class Canvas{
         for (let i = 0; i < this.matrix.length; i++) {
             for (let j = 0; j < this.matrix[0].length; j++) {
                 if (this.matrix[i][j] > 0) {
-                    // this.drawPixel(i, j, `hsl(${this.matrix[i][j]}, 100%, 50%)`);
-                    this.drawPixel(i, j, Constants.hexToString(this.matrix[i][j]));
+                    this.drawPixel(i, j, Constants.hexColorToString(this.matrix[i][j]));
                 }
             }
         }
@@ -66,7 +64,6 @@ export class Canvas{
     run(){
 
         let newMatrix = createEmptyMatrix();
-        // this.colorHue = (this.colorHue > 360) ? 1 : this.colorHue+1;
     
         for (let i = 0; i < this.matrix.length; i++) {
             for (let j = 0; j < this.matrix[0].length; j++) {
@@ -126,4 +123,27 @@ export class Canvas{
 function createEmptyMatrix(){
     return new Array(Constants.CANVAS_WIDTH).fill(0)
                 .map(() => new Array(Constants.CANVAS_HEIGHT).fill(0));
+}
+
+function randomColorInSpectrum(color){
+    let colorStr = Constants.hexColorToString(color);
+    let rStr = "0x" + colorStr.substring(1, 3);
+    let gStr = "0x" + colorStr.substring(3, 5);
+    let bStr = "0x" + colorStr.substring(5, 7);
+
+    let range = Math.round(Math.random() * 15);
+    let variance = (Math.random() < 0.5) ? -range : range; 
+
+    let r = Math.max(Math.min(parseInt(rStr) + variance, 255), 0);
+    let g = Math.max(Math.min(parseInt(gStr) + variance, 255), 0);
+    let b = Math.max(Math.min(parseInt(bStr) + variance, 255), 0);
+
+    let hexCode = "0x" + (Constants.hexToString(r).padStart(2, '0') + 
+                            Constants.hexToString(g).padStart(2, '0') +
+                            Constants.hexToString(b).padStart(2, '0'));
+
+    console.log(`${hexCode} - ${variance}`);
+
+    return parseInt(hexCode);
+
 }
