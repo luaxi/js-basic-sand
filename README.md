@@ -10,9 +10,10 @@ Um simples projeto de simulador de areia implementado em JavaScript puro. Ele pe
 - Controle de velocidade da simulação
 - Botão para resetar o canvas
 - Seletor de cores para desenhar a areia
+- Botão para baixar o canvas em png
 
 ## To-do
-- [ ] Botão para baixar o canvas em png
-- [ ] Outros modos de simulação
+- [ ] Adicionar cor personalizada
 - [ ] Redimensionar canvas
-- [ ] Canvas na tela inteira
+- [ ] Canvas full screen
+- [ ] Suporte mobile
