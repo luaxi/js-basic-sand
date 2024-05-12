@@ -72,6 +72,11 @@ function main(){
         canvas.reset();
     });
 
+    buttonDownload.addEventListener('click', (e) => {
+        let image = canvas.selfElement.toDataURL();
+        anchorDonwload.setAttribute("href", image);
+    });
+
     // run canvas
     canvas.run();
 }
