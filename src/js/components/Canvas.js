@@ -3,22 +3,25 @@ import * as Constants from "../constants/constants.js";
 export class Canvas{
 
     isMouseDown = false;
+    reset = false;
+    sandCount = 0;
     // colorHue = 1;
     matrix = createEmptyMatrix();
     speed = 0;
     selectedColor = Constants.CANVAS_COLOR_SELECTED_DEFAULT;
 
-    constructor(width, height, pixelSize, parentElement, canvasId){
+    constructor(width, height, pixelSize, canvasId){
         this.WIDTH = width * pixelSize;
         this.HEIGHT = height * pixelSize;
         this.CANVAS_ID = canvasId;
         this.PIXEL_SIZE = pixelSize;
-        this.selfElement = this.createHTMLCanvas(this.WIDTH, this.HEIGHT, parentElement, canvasId);
+        this.selfElement = this.initHTMLCanvas(this.WIDTH, this.HEIGHT, canvasId);
         this.ctx = this.selfElement.getContext("2d");
     }
 
-    createHTMLCanvas(width, height, parentElement, canvasId){
-        let canvas = document.createElement("canvas");
+    initHTMLCanvas(width, height, canvasId){
+        let canvas = document.querySelector(`#${canvasId}`);
+        console.log(canvas);
         canvas.width = width;
         canvas.height = height;
         canvas.id = canvasId;
@@ -44,9 +47,9 @@ export class Canvas{
             }
         });
         
-        document.querySelector(parentElement).appendChild(canvas);
+        // document.querySelector(parentElement).appendChild(canvas);
 
-        return document.querySelector(`#${canvasId}`);
+        return canvas;
     }
 
     renderCanvas() {
@@ -56,23 +59,26 @@ export class Canvas{
             for (let j = 0; j < this.matrix[0].length; j++) {
                 if (this.matrix[i][j] > 0) {
                     this.drawPixel(i, j, Constants.hexColorToString(this.matrix[i][j]));
+                    this.sandCount++;
                 }
             }
         }
+
+        this.reset = (this.sandCount == 0) ? false : this.reset;
     }
 
     run(){
 
         let newMatrix = createEmptyMatrix();
     
-        for (let i = 0; i < this.matrix.length; i++) {
-            for (let j = 0; j < this.matrix[0].length; j++) {
+        for (let i = this.matrix.length-1; i >= 0; i--) {
+            for (let j = this.matrix[0].length-1; j >= 0; j--) {
                 let current = this.matrix[i][j];
-                let below = this.matrix[i][j+1];
+                let below = newMatrix[i][j+1];
                 let dir = (Math.random() < 0.5) ? -1 : 1;
     
-                let belowA = (i + dir >= 0 && i + dir <= this.matrix.length-1) ? this.matrix[i+dir][j+1] : undefined;
-                let belowB = (i - dir >= 0 && i - dir <= this.matrix.length-1) ? this.matrix[i-dir][j+1] : undefined;
+                let belowA = (i + dir >= 0 && i + dir <= newMatrix.length-1) ? this.matrix[i+dir][j+1] : undefined;
+                let belowB = (i - dir >= 0 && i - dir <= newMatrix.length-1) ? this.matrix[i-dir][j+1] : undefined;
                 
                 if(current > 0){
                     if (below == 0) { // fall down
@@ -81,7 +87,7 @@ export class Canvas{
                         newMatrix[i+dir][j+1] = current;
                     } else if (belowB == 0) { // fall right
                         newMatrix[i-dir][j+1] = current;
-                    } else { // não se move
+                    } else if (!this.reset || j != newMatrix[0].length-1){
                         newMatrix[i][j] = current;
                     }
                 }
@@ -106,13 +112,9 @@ export class Canvas{
     }
 
     clear(){
+        this.sandCount = 0;
         this.ctx.fillStyle = Constants.CANVAS_COLOR_EMPTY;
-        this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
-    }
-
-    reset(){
-        this.clear();
-        this.matrix = createEmptyMatrix();
+        this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
     }
 
 }
@@ -138,8 +140,6 @@ function randomColorInSpectrum(color){
     let hexCode = "0x" + (Constants.hexToString(r).padStart(2, '0') + 
                             Constants.hexToString(g).padStart(2, '0') +
                             Constants.hexToString(b).padStart(2, '0'));
-
-    console.log(`${hexCode} - ${variance}`);
 
     return parseInt(hexCode);
 

@@ -6,7 +6,6 @@ export const CANVAS_COLOR_EMPTY = "black";
 export const CANVAS_COLOR_DEFAULT = "white";
 export const CANVAS_COLOR_SELECTED_DEFAULT = 0xFFFFFF;
 export const CANVAS_ELEMENT_ID = "sand-canvas";
-export const CANVAS_PARENT_ELEMENT = "#canvas";
 
 export const CANVAS_MIN_SPEED = 0;
 export const CANVAS_MAX_SPEED = 300;

@@ -10,7 +10,6 @@ function main(){
         Constants.CANVAS_WIDTH,
         Constants.CANVAS_HEIGHT,
         Constants.CANVAS_PIXEL_SIZE,
-        Constants.CANVAS_PARENT_ELEMENT,
         Constants.CANVAS_ELEMENT_ID,
     ) 
 
@@ -40,7 +39,6 @@ function main(){
         input.name = "color";
         input.id = color.name;
         input.value = color.hexCode.toString();
-        console.log(input.value);
 
         input.addEventListener('change', (e) => {
             document.querySelector(`#${selectedColor}`).classList.remove("color-selected");
@@ -69,7 +67,7 @@ function main(){
 
         e.currentTarget.style['rotate'] = `${new_rotation}deg`;
 
-        canvas.reset();
+        canvas.reset = true;
     });
 
     buttonDownload.addEventListener('click', (e) => {
