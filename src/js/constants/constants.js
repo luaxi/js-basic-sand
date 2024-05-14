@@ -3,7 +3,8 @@ export const CANVAS_WIDTH = 100;
 export const CANVAS_HEIGHT = 60;
 export const CANVAS_PIXEL_SIZE = 8;
 export const CANVAS_COLOR_EMPTY = "black";
-export const CANVAS_COLOR_START = "white";
+export const CANVAS_COLOR_DEFAULT = "white";
+export const CANVAS_COLOR_SELECTED_DEFAULT = 0xFFFFFF;
 export const CANVAS_ELEMENT_ID = "sand-canvas";
 export const CANVAS_PARENT_ELEMENT = "#canvas";
 

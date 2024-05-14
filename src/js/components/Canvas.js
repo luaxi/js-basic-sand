@@ -5,9 +5,8 @@ export class Canvas{
     isMouseDown = false;
     // colorHue = 1;
     matrix = createEmptyMatrix();
-    
     speed = 0;
-    selectedColor = 0xFFFFFF;
+    selectedColor = Constants.CANVAS_COLOR_SELECTED_DEFAULT;
 
     constructor(width, height, pixelSize, parentElement, canvasId){
         this.WIDTH = width * pixelSize;
@@ -15,6 +14,7 @@ export class Canvas{
         this.CANVAS_ID = canvasId;
         this.PIXEL_SIZE = pixelSize;
         this.selfElement = this.createHTMLCanvas(this.WIDTH, this.HEIGHT, parentElement, canvasId);
+        this.ctx = this.selfElement.getContext("2d");
     }
 
     createHTMLCanvas(width, height, parentElement, canvasId){
@@ -38,7 +38,7 @@ export class Canvas{
 
                 if(this.matrix[x][y] == 0){ 
                     this.matrix[x][y] = randomColorInSpectrum(this.selectedColor);
-                    this.drawPixel(x, y, Constants.CANVAS_COLOR_START);
+                    this.drawPixel(x, y, Constants.CANVAS_COLOR_DEFAULT);
                 }
                 
             }
@@ -98,19 +98,16 @@ export class Canvas{
     }
 
     drawPixel(x, y, color){
-        let ctx = this.selfElement.getContext('2d');
         x *= this.PIXEL_SIZE;
         y *= this.PIXEL_SIZE;
 
-        ctx.fillStyle = color;
-        ctx.fillRect(x, y, this.PIXEL_SIZE, this.PIXEL_SIZE);
+        this.ctx.fillStyle = color;
+        this.ctx.fillRect(x, y, this.PIXEL_SIZE, this.PIXEL_SIZE);
     }
 
     clear(){
-        let ctx = this.selfElement.getContext('2d');
-        ctx.fillStyle = Constants.CANVAS_COLOR_EMPTY;
-
-        ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
+        this.ctx.fillStyle = Constants.CANVAS_COLOR_EMPTY;
+        this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
     }
 
     reset(){

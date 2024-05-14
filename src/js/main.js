@@ -3,7 +3,7 @@ import { Canvas } from './components/Canvas.js';
 
 function main(){
 
-    let selectedColor = Constants.CANVAS_COLOR_START;
+    let selectedColor = Constants.CANVAS_COLOR_DEFAULT;
 
     // initialize canvas
     let canvas = new Canvas(
